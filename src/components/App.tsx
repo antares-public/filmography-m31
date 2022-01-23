@@ -1,6 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { filmsData } from "../filmsData";
 
+const url =
+  "https://i.pinimg.com/originals/2f/f2/6a/2ff26a3dd03271d1764c36af3ff448de.jpg";
+
 const App: React.FC = () => {
   const [allFilmsList, setFilmsList] = useState<
     Array<{ [key: string]: string }>
@@ -65,7 +68,20 @@ const App: React.FC = () => {
   );
 
   return (
-    <div>
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+
+        background: `url(${url}) center no-repeat`,
+        backgroundSize: "100%",
+
+        position: "absolute",
+        top: 0,
+        left: 0,
+        zIndex: 10,
+      }}
+    >
       <p>{film || "Random film"}</p>
       <button onClick={hanlerRandomFilm}>Random</button>
 
