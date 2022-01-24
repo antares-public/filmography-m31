@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { filmsData } from "../filmsData";
 import { Random } from "./Random";
 import { Form } from "./Form";
 import { List } from "./List";
@@ -7,7 +6,7 @@ import { List } from "./List";
 const App: React.FC = () => {
   const [allFilmsList, setFilmsList] = useState<
     Array<{ [key: string]: string }>
-  >(JSON.parse(localStorage.getItem("films")) || filmsData);
+  >(JSON.parse(localStorage.getItem("films")));
 
   useEffect(() => {
     localStorage.setItem("films", JSON.stringify(allFilmsList));
@@ -15,18 +14,12 @@ const App: React.FC = () => {
 
   return (
     <div className="wrapper">
-      <div
-        style={{
-          padding: "10px 70px",
-          display: "flex",
-          justifyContent: "space-around",
-        }}
-      >
-        <div>
+      <div className="inner">
+        <div style={{ width: 300 }}>
           <Form filmsList={allFilmsList} updateFilmsList={setFilmsList} />
-          <List filmsList={allFilmsList} updateFilmsList={setFilmsList} />
+          <List filmsList={allFilmsList} />
         </div>
-        <div>
+        <div style={{ width: 300 }}>
           <Random filmsList={allFilmsList} updateFilmsList={setFilmsList} />
         </div>
       </div>

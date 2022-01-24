@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Error } from "./Error";
 
 export const Form: React.FC<any> = ({ filmsList, updateFilmsList }) => {
-  const [filmDataInfo, setFilmDataInfo] = useState({ name: "" });
+  const [filmDataInfo, setFilmDataInfo] = useState(null);
   const [error, setError] = useState(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilmDataInfo((prev) => ({
+    setFilmDataInfo((prev: any) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
@@ -17,8 +17,9 @@ export const Form: React.FC<any> = ({ filmsList, updateFilmsList }) => {
     const duplicate = filmsList.find((f: any) => f.name === filmDataInfo.name);
     if (!duplicate) {
       updateFilmsList((prev: any) => [...prev, filmDataInfo]);
+      setFilmDataInfo(null);
     } else {
-      setError("This film has already been added");
+      setError("Этот фильм уже был добавлен");
 
       setTimeout(() => {
         setError(null);
@@ -39,12 +40,15 @@ export const Form: React.FC<any> = ({ filmsList, updateFilmsList }) => {
         <input
           name="name"
           required
+          value={filmDataInfo?.name || ""}
           onChange={handleChange}
           placeholder="TITLE"
         />
         <input
           style={{ marginTop: 10 }}
+          required
           name="desc"
+          value={filmDataInfo?.desc || ""}
           onChange={handleChange}
           placeholder="DESCRIPTION"
         />
